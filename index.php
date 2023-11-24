@@ -1,166 +1,38 @@
-<?php
-include("includes/config.php");
+<?php include("includes/header.php"); ?>
 
-//session_destroy(); LOGOUT
+<h1 class="pageHeadingBig">
+	<?php function get_greeting()
+	{
+		$hour = date('H');
 
-if (isset($_SESSION['userLoggedIn'])) { //$_SESSION global variable
-	$userLoggedIn = $_SESSION['userLoggedIn'];
-} else {
-	header("Location: register.php");
-}
+		$greeting = "";
+		if ($hour < 12) {
+			$greeting = "Good morning";
+		} elseif ($hour < 17) {
+			$greeting = "Good afternoon";
+		} elseif ($hour < 21) {
+			$greeting = "Good evening";
+		} else {
+			$greeting = "Good night";
+		}
 
-?>
-
-<html>
-
-<head>
-	<title>Welcome to Violina!</title>
-
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-</head>
-
-<body>
-	<div id="mainContainer">
-		<div id="topContainer">
-			<div id="navBarContainer">
-				<nav class="navBar">
-					<a href="index.php" class="logo">
-						<img src="assets/images/logo.png" alt="logo">
-					</a>
-
-					<div class="group">
-						<div class="navItem">
-							<a href="search.php" class="navItemLink">Search
-								<img src="assets/images/icons/search.png" class="icon" alt="Serach">
-							</a>
-						</div>
-					</div>
-
-					<div class="group">
-					<div class="navItem">
-							<a href="browse.php" class="navItemLink">Browse</a>
-						</div>
-
-						<div class="navItem">
-							<a href="yourMusic.php" class="navItemLink">Your Music</a>
-						</div>
-
-						<div class="navItem">
-							<a href="profile.php" class="navItemLink">Hosain</a>
-						</div>
-					</div>
-
-				</nav>
-			</div>
-		</div>
-
-
-		<div id="nowPlayingBarContainer">
-
-			<div id="nowPlayingBar">
-
-				<div id="nowPlayingLeft">
-					<div class="content">
-						<span class="albumLink">
-							<img src="assets/images/squre.png" alt="square image" class="albumArtwork">
-						</span>
-						<div class="trackInfo">
-							<span class="trackName">
-								<span>Happy Birthday</span>
-
-							</span>
-							<span class="artistName">
-								<span>Taylor Swift</span>
-
-							</span>
-
-						</div>
-					</div>
-
-				</div>
-
-				<div id="nowPlayingCenter">
-
-					<div class="content playerControls">
-
-						<div class="buttons">
-
-							<button class="controlButton shuffle" title="Shuffle button">
-								<img src="assets/images/icons/shuffle.png" alt="Shuffle">
-							</button>
-
-							<button class="controlButton previous" title="Previous button">
-								<img src="assets/images/icons/previous.png" alt="Previous">
-							</button>
-
-							<button class="controlButton play" title="Play button">
-								<img src="assets/images/icons/play.png" alt="Play">
-							</button>
-
-							<button class="controlButton pause" title="Pause button" style="display: none;">
-								<img src="assets/images/icons/pause.png" alt="Pause">
-							</button>
-
-							<button class="controlButton next" title="Next button">
-								<img src="assets/images/icons/next.png" alt="Next">
-							</button>
-
-							<button class="controlButton repeat" title="Repeat button">
-								<img src="assets/images/icons/repeat.png" alt="Repeat">
-							</button>
-
-						</div>
-
-
-						<div class="playbackBar">
-
-							<span class="progressTime current">0.00</span>
-
-							<div class="progressBar">
-								<div class="progressBarBg">
-									<div class="progress"></div>
-								</div>
-							</div>
-
-							<span class="progressTime remaining">0.00</span>
-
-
-						</div>
-
-
-					</div>
-
-
-				</div>
-
-				<div id="nowPlayingRight">
-					<div class="volumeBar">
-						<button class="controlButton volume" title="Volume button">
-							<img src="assets/images/icons/volume.png" alt="Volume">
-
-						</button>
-
-						<div class="progressBar">
-							<div class="progressBarBg">
-								<div class="progress"></div>
-							</div>
-						</div>
-
-					</div>
+		return $greeting;
+	}
+	echo get_greeting();
+	?>
+	<!-- automatically greeting you -->
+</h1>
 
 
 
-				</div>
+<div class="gridviewContainer">
+	<?php
+		$albumQuery = mysqli_query($con, "SELECT * FROM albums");
+		while($row = mysqli_fetch_array($albumQuery)){	//converts the query into array
+			echo $row['name'] . "<br>"; //The dot (.) operator in PHP is used to concatenate two or more strings.
+		}
+	?>
+</div>
 
 
-
-
-			</div>
-
-		</div>
-	</div>
-
-
-</body>
-
-</html>
+<?php include("includes/footer.php"); ?>

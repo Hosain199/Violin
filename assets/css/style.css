@@ -8,6 +8,12 @@ body {
 * {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #fff;
+} 
+
+body {
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px;
 }
 
 #nowPlayingBarContainer {
@@ -151,7 +157,7 @@ body {
 }
 
 #navBarContainer {
-    
+
     width: 220px;
     height: 100vh;
     position: fixed;
@@ -159,9 +165,11 @@ body {
     left: 0;
     background-color: #000000;
 }
+
 @-moz-document url-prefix() {
     #navBarContainer {
-      height: calc(100vh + 50px); /* Add some extra height to compensate for the address bar or toolbar */
+        height: calc(100vh + 50px);
+        /* Add some extra height to compensate for the address bar or toolbar */
     }
 }
 
@@ -170,7 +178,7 @@ body {
     display: flex;
     flex-direction: column;
     -ms-flex-direction: column;
-    
+
 }
 
 .logo {
@@ -200,13 +208,25 @@ body {
     color: #a0a0a0;
     text-decoration: none;
 }
-.navItemLink:hover{
+
+.navItemLink:hover {
     color: #ffffff;
-    
+
 }
+
 .navItemLink .icon {
     position: absolute;
     right: 0;
     top: 6px;
     width: 25px;
+}
+
+#mainViewContainer {
+    margin-left: 220px;
+    padding-bottom: 90px;
+    width: calc(100% - 220px);
+}
+
+#mainContent {
+    padding: 0 20px;
 }
