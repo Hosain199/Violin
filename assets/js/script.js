@@ -15,5 +15,9 @@ function Audio() {
 		this.audio.play();
 	}
 
+	this.pause = function(){
+		this.audio.pause();
+	}
+
 }
 

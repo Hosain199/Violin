@@ -12,17 +12,24 @@ while($row = mysqli_fetch_array($songQuery)) {
 $jsonArray = json_encode($resultArray);
 ?>
 
+
+			<!-- Start jQuery fuction. It simplifies HTML document manipulation, event handling, animation, and Ajax.
+		The code block uses the jQuery syntax, which is $(selector).action(), to select HTML elements and perform actions on them.
+		 For example, the code uses $(document).ready(function() {...}) to execute a function when the document is fully loaded.
+		  The code also uses the jQuery object ?php echo $jsonArray; ?> to store the current playlist of songs -->
+
+
 <script>
 $(document).ready(function() {	//start rendering js
 	currentPlaylist = <?php echo $jsonArray; ?>;
 	audioElement = new Audio();
-	setTrack(currentPlaylist[0], currentPlaylist, true);
+	setTrack(currentPlaylist[0], currentPlaylist, false);
 });
 
 
 function setTrack(trackId, newPlaylist, play) {
 
-	audioElement.setTrack("assets/music/Linkin Park - In The End.mp3");
+	audioElement.setTrack("assets/music/Linkin Park - Battle_Symphony.mp3");
 
 	if(play == true) {
 		audioElement.play();
@@ -32,6 +39,8 @@ function setTrack(trackId, newPlaylist, play) {
 	
 }
 </script>
+
+
 
 <div id="nowPlayingBarContainer">
 
