@@ -8,7 +8,8 @@ body {
 * {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #fff;
-} 
+    letter-spacing: 1px;
+}
 
 body {
     background-color: #181818;
@@ -225,8 +226,155 @@ body {
     margin-left: 220px;
     padding-bottom: 90px;
     width: calc(100% - 220px);
+    background: linear-gradient(#1c2519, #1f2d30, #30261b6b, #1a252e46 );
 }
 
 #mainContent {
     padding: 0 20px;
+}
+
+.pageHeadingBig {
+    padding: 15px;
+    color: #1DB954;
+    font-size: 35px;
+}
+
+.gridViewItem {
+    display: inline-block;
+    margin-right: 115px;
+    width: 29%;
+    max-width: 200px;
+    min-width: 150px;
+    margin-bottom: 20px;
+
+}
+
+.girdViewItem img {
+    width: 100%;
+
+}
+
+.gridViewInfo {
+    font-weight: 600;
+    text-align: center;
+    padding: 5px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.gridViewItem a {
+    text-decoration: none;
+}
+
+.entityInfo {
+    padding: 40px 0 10px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.entityInfo .leftSection {
+    width: 40%;
+    float: left;
+    max-width: 320px;
+}
+
+.entityInfo .leftSection img {
+    width: 100%;
+}
+
+.entityInfo .rightSection {
+    width: 40%;
+    float: left;
+    padding: 5px 10px 5px 40px;
+     box-sizing: border-box; /* allows us to include the padding and border in an element's total width and height. */
+}
+
+.entityInfo .rightSection h2 {
+    font-weight: 900;
+    margin-top: 0px;
+}
+
+.entityInfo .rightSection p {
+    color: #939393;
+    font-weight: 200;
+}
+
+.tacklist {
+    padding: 0;
+}
+
+.tracklistRow {
+    height: 40px;
+    padding: 15px 10px;
+    list-style: none;
+}
+
+.tracklistRow span
+{
+    color: #939393;
+    font-weight: 200;
+}
+
+.tracklistRow:hover {
+    background-color: #282828;
+}
+
+.tracklistRow .trackCount {
+    width: 8%;
+    float: left;
+}
+
+.tracklistRow .trackCount img {
+    width: 20px;
+    visibility: hidden;
+    position: absolute;
+    cursor: pointer;
+}
+
+.tracklistRow:hover .trackCount img {
+    visibility: visible;
+}
+
+.tracklistRow .trackCount span {
+    visibility: visible;
+}
+
+.tracklistRow:hover .trackCount span {
+    visibility: hidden;
+}
+
+.tracklistRow .trackInfo {
+    width: 75%;
+    float: left;
+}
+
+.tracklistRow .trackInfo span {
+    display: block;
+}
+
+.tracklistRow .trackOption {
+    width: 5%;
+    float: left;
+    text-align: right;
+}
+
+.tracklistRow .trackOption img {
+    width: 15px;
+    visibility: hidden;
+}
+
+.tracklistRow:hover .trackOption img {
+    visibility: visible;
+}
+
+.tracklistRow .trackDuration {
+    width: 12%;
+    float: left;
+    text-align: right;
+}
+
+.tracklistRow .trackInfo .trackName {
+    color: #fff;
+    margin-bottom: 7px;
 }
