@@ -47,12 +47,13 @@ $artist = $album->getArtist();
         {
             $albumSong = new Song($con, $songId);
 
-            
-            $albumArtist = $albumSong->getArtist();
 
-            echo "<li class='tracklistRow'>
+            $albumArtist = $albumSong->getArtist();
+                                             //   cancel a character out.  \" is cancel out character
+            echo "<li class='tracklistRow'> 
             <div class='trackCount'>
-                <img class ='play' src = 'assets/images/icons/play-white.png'>
+                 <img class ='play' src = 'assets/images/icons/play-white.png' onclick = 'setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>  
+               
                 <span class ='trackNumber'>$i</span>
             </div>
 
@@ -74,9 +75,15 @@ $artist = $album->getArtist();
             </li>";
 
 
-            $i= $i+1;
+            $i = $i + 1;
         }
+
         ?>
+
+        <script>
+            var tempSongIds = '<?php echo json_encode($songIdArray); ?>';   //PHP array convert into JSON foramt
+            tempPlaylist = JSON.parse(tempSongIds);     //use JSON format converted into an js object
+        </script>
 
     </ul>
 

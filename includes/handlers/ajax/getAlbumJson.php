@@ -1,7 +1,8 @@
 <?php 
  include("../../config.php");   // database connection variable
 
-    // call database
+    // ajax call database. we can't call Php from js
+    
 if(isset($_POST['albumId'])){
     $albumId = $_POST['albumId'];
     
