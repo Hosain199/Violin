@@ -3,7 +3,7 @@ $songQuery = mysqli_query($con, "SELECT id FROM songs ORDER BY RAND() LIMIT 10")
 
 $resultArray = array();
 
-while ($row = mysqli_fetch_array($songQuery)) {
+while($row = mysqli_fetch_array($songQuery)) {
 	array_push($resultArray, $row['id']);
 }
 
@@ -21,7 +21,7 @@ $jsonArray = json_encode($resultArray);
 
 <script>
 	$(document).ready(function () {	//start rendering js
-		
+
 		newPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
 		setTrack(newPlaylist[0], newPlaylist, false);
@@ -100,7 +100,7 @@ $jsonArray = json_encode($resultArray);
 			//othewise it plays from its very first also if the song index is 0 in 
 			//current playlist then it runs itself again.
 		}
-		else{
+		else {
 			currentIndex = currentIndex - 1;
 			setTrack(currentPlaylist[currentIndex], currentPlaylist, true);		//previous song,newPlaylist is currentplaylist now
 		}
@@ -141,31 +141,31 @@ $jsonArray = json_encode($resultArray);
 
 
 	function setShuffle() {
-		shuffle = !shuffle; 	
+		shuffle = !shuffle;
 		var imageName = shuffle ? "shuffle-active.png" : "shuffle.png";
 		$(".controlButton.shuffle img").attr("src", "assets/images/icons/" + imageName);
-		
-		if(shuffle==true){
+
+		if (shuffle == true) {
 			//randomize playlist
 			shuffleArray(shufflePlaylist);
-			currentIndex =shufflePlaylist.indexOf(audioElement.currentlyPlaying.id);
+			currentIndex = shufflePlaylist.indexOf(audioElement.currentlyPlaying.id);
 
 		}
-		else{
+		else {
 			//shuffle has been deactivate
 			//go back to regular playlist
-			currentIndex =currentPlaylist.indexOf(audioElement.currentlyPlaying.id);
+			currentIndex = currentPlaylist.indexOf(audioElement.currentlyPlaying.id);
 
 		}
-	
-	
-	
+
+
+
 	}
 
-	function shuffleArray(a){
+	function shuffleArray(a) {
 		var j, x, i;
-		for(i = a.length; i; i--){
-			j = Math.floor(Math.random()*i);
+		for (i = a.length; i; i--) {
+			j = Math.floor(Math.random() * i);
 			x = a[i - 1];
 			a[i - 1] = a[j];
 			a[j] = x;
@@ -174,54 +174,56 @@ $jsonArray = json_encode($resultArray);
 
 	function setTrack(trackId, newPlaylist, play) {
 
-		if(newPlaylist != currentPlaylist){
+		if (newPlaylist != currentPlaylist) {
 			currentPlaylist = newPlaylist;
 			shufflePlaylist = currentPlaylist.slice(); //.slice() create a copy of array 
 			shuffleArray(shufflePlaylist);
 		}
 
-		if(shuffle == true){
+		if (shuffle == true) {
 			currentIndex = shufflePlaylist.indexOf(trackId);
 		}
-		else{
+		else {
 			currentIndex = currentPlaylist.indexOf(trackId);		//get song Id to change song
 		}
-				//get song Id to change song
+
+		//get song Id to change song
 		pauseSong();
 
 		//audioElement.setTrack("assets/music/Linkin Park - Battle_Symphony.mp3");
-
 		// ajax call for song name. it excute php without page reload 
 
 		$.post("includes/handlers/ajax/getSongJson.php", { songId: trackId }, function (data) {
-
-
-			var track = JSON.parse(data); //pass JSON data from ajax call; 
-
-			$(".trackName span").text(track.title); // input value into 
+			var track = JSON.parse(data);		 //pass JSON data from ajax call; 
+			$(".trackName span").text(track.title);		 // input value into 
 			//console.log(track);
 
 			$.post("includes/handlers/ajax/getArtistJson.php", { artistId: track.artist }, function (data) {
 				var artist = JSON.parse(data);
 				$(".artistName span").text(artist.name);
+				$(".artistName span").attr("onclick", "openPage('artist.php?id=" + artist.id + "')");
 			});
 
 			$.post("includes/handlers/ajax/getAlbumJson.php", { albumId: track.album }, function (data) {
 				var album = JSON.parse(data);
 				$(".albumLink img").attr("src", album.artworkPath);
+				$(".albumLink img").attr("onclick", "openPage('album.php?id=" + album.id + "')");
+				$(".trackName span").attr("onclick", "openPage('album.php?id=" + album.id + "')");
+
 			});
 
 			audioElement.setTrack(track);
-			playSong();
+			// playSong();
+			// ajax call for artist name.we can't call Php from js
+			//php code execute as soon as when page load. we can't execute php when page reloded
+			//so we use ajax call to update song count.
+
+			if (play == true) {
+				playSong();
+			}
 		});
 
-		// ajax call for artist name.we can't call Php from js
-		//php code execute as soon as when page load. we can't execute php when page reloded
-		//so we use ajax call to update song count.
 
-		if (play == true) {
-			audioElement.play();
-		}
 	}
 
 	function playSong() {
@@ -255,15 +257,15 @@ $jsonArray = json_encode($resultArray);
 		<div id="nowPlayingLeft">
 			<div class="content">
 				<span class="albumLink">
-					<img src="" alt="song image" class="albumArtwork">
+					<img role="link" tabindex="0" src="" alt="song image" class="albumArtwork">
 				</span>
 				<div class="trackInfo">
 					<span class="trackName">
-						<span> </span>
+						<span role="link" tabindex="0"> </span>
 
 					</span>
 					<span class="artistName">
-						<span></span>
+						<span role="link" tabindex="0"></span>
 
 					</span>
 
@@ -282,7 +284,7 @@ $jsonArray = json_encode($resultArray);
 						<img src="assets/images/icons/shuffle.png" alt="Shuffle">
 					</button>
 
-					<button class="controlButton previous" title="Previous button" onclick ="prevSong()">
+					<button class="controlButton previous" title="Previous button" onclick="prevSong()">
 						<img src="assets/images/icons/previous.png" alt="Previous">
 					</button>
 
