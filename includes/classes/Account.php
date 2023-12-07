@@ -1,6 +1,5 @@
 <?php
     class Account{
-
         private $con;
         private $errorArray;
 

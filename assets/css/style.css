@@ -407,10 +407,53 @@ body {
     margin-bottom: 20px;
 }
 .trackListContainer h2,
-.gridViewContainer h2 {
+.gridViewContainer h2,
+.artisiContainer {
     text-align: center;
 }
 
 [role="link"] {
     cursor: pointer;
+}
+
+.searchContainer {
+    background-color: #242424;
+    padding: 20px 20px;
+    border-radius: 500px;
+}
+
+.searchContainer h4 {
+    margin: 0;
+    font-weight: 300;
+}
+
+.searchContainer .searchInput {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.searchResultRow {
+    padding: 15px 10px;
+}
+
+.searchResultsRow:hover {
+    background-color: #282828;
+}
+
+.searchResultRow .artistName span {
+    columns: #fff;
+}
+
+.noResults {
+    margin: 15px;
+    display: block;
 }

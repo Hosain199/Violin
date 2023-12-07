@@ -28,7 +28,7 @@ include("includes/includedFiles.php");
 
 <div class="gridviewContainer">
 	<?php
-	$albumQuery = mysqli_query($con, "SELECT * FROM albums ORDER BY RAND() LIMIT 10");
+	$albumQuery = mysqli_query($con, "SELECT * FROM albums ORDER BY RAND()");
 	while($row = mysqli_fetch_array($albumQuery)) {	//converts the query into array
 		// echo $row['name'] . "<br>"; //The dot (.) operator in PHP is used to concatenate two or more strings.
 		// Inside single quotation all are string
