@@ -26,6 +26,32 @@ function openPage(url) {
 	history.pushState(null, null, url);
 }
 
+function createPlayList(){
+
+	console.log(userLoggedIn);
+
+	var popup = prompt("please enter the name pf your Playlist");
+
+	if(popup != null){
+		//console.log(popup);
+
+		//ajax call for excute mySql 
+
+		$.post("includes/handlers/ajax/createPlayList.php", { name: popup, username: userLoggedIn})
+		.done(function(error){
+			//.done excute ajax responses . success handaler
+			//do something when ajax return
+			if(error != ""){
+				alert(error);
+				return;
+			}
+			openPage("yourMusic.php");
+
+			
+		});
+	}
+}
+
 
 function formatTime(seconds){
 	var time = Math.round(seconds); //Math js object, time contains rounded version of seconds. 5.4s to 5s

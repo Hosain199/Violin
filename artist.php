@@ -107,7 +107,7 @@ $artist = new Artist($con, $artistId);
 						<img src='" . $row['artworkPath'] . "'>
 
 						<div class='gridViewInfo'>"
-							. $row['title'] .
+							. $row['name'] .
 						"</div>
 					</span>
 
