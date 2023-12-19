@@ -41,7 +41,7 @@ if (isset($_GET['term'])) {
         <?php
         $songsQuery = mysqli_query($con, "SELECT id FROM songs WHERE title LIKE '$term%' LIMIT 10");         //first % belongs enythig search with the letter last % return after its
         if (mysqli_num_rows($songsQuery) == 0) {
-            echo "<span class = 'noResults'>No songs found matching " . $term . "</span";
+            echo "<span class = 'noResults'>No songs found matching " . $term . "</span>";
         }
 
         $songIdArray = array();
@@ -127,12 +127,14 @@ if (isset($_GET['term'])) {
 
 
 <div class="gridViewContainer">
+    
     <h2>ALBUMS</h2>
+
     <?php
     $albumQuery = mysqli_query($con, "SELECT * FROM albums WHERE name LIKE'$term%' LIMIT 10");
 
     if (mysqli_num_rows($albumQuery) == 0) {
-        echo "<span class='noResults'>No Albums found matching" . $term . "</span>";
+        echo "<span class='noResults'>No Albums found matching " . $term . "</span>";
 
     }
 

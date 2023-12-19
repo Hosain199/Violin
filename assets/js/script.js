@@ -26,30 +26,30 @@ function openPage(url) {
 	history.pushState(null, null, url);
 }
 
-function createPlayList(){
-
+function createPlaylist() {
 	console.log(userLoggedIn);
+	var popup = prompt("Please enter the name of your playlist");
 
-	var popup = prompt("please enter the name pf your Playlist");
+	if(popup != null) {
 
-	if(popup != null){
 		//console.log(popup);
 
 		//ajax call for excute mySql 
 
-		$.post("includes/handlers/ajax/createPlayList.php", { name: popup, username: userLoggedIn})
-		.done(function(error){
-			//.done excute ajax responses . success handaler
-			//do something when ajax return
-			if(error != ""){
+		$.post("includes/handlers/ajax/createPlaylist.php", { name: popup, username: userLoggedIn })
+		.done(function(error) {
+
+			if(error != "") {
 				alert(error);
 				return;
 			}
+			//.done excute ajax responses . success handaler
+			//do something when ajax returns
 			openPage("yourMusic.php");
-
-			
 		});
+
 	}
+
 }
 
 
