@@ -1,90 +1,93 @@
-<?php include("includes/includedFiles.php");
+<?php include("includes/includedFiles.php"); 
 
-if (isset($_GET['id'])) {
-    $albumId = $_GET['id'];
-} else {
-    header("Location: index.php");
+if(isset($_GET['id'])) {
+	$albumId = $_GET['id'];
+}
+else {
+	header("Location: index.php");
 }
 
 $album = new Album($con, $albumId);
-
 $artist = $album->getArtist();
-
-// echo $album->getTitle() . "<br>";
-// echo $artist->getname();
+$artistId = $artist->getId();
 ?>
-
 
 <div class="entityInfo">
 
-    <div class="leftSection">
-        <img src="<?php echo $album->getArtworkPath(); ?>">
+	<div class="leftSection">
+		<img src="<?php echo $album->getArtworkPath(); ?>">
+	</div>
 
-    </div>
+	<div class="rightSection">
+		<h2><?php echo $album->getTitle(); ?></h2>
+		<p role="link" tabindex="0" onclick="openPage('artist.php?id=$artistId')">By <?php echo $artist->getName(); ?></p>
+		<p><?php echo $album->getNumberOfSongs(); ?> songs</p>
 
-    <div class="rightSection">
-        <h2>
-            <?php echo $album->getTitle(); ?>
-        </h2>
-        <p>By
-            <?php echo $artist->getname(); ?>
-        </p>
-        <p>
-            <?php echo $album->getNumberOfSongs() ; ?> Songs
-        </p>
-    </div>
+	</div>
+
 </div>
 
 
 <div class="tracklistContainer">
-    <ul class="tacklist">
+	<ul class="tracklist">
+		
+		<?php
+		$songIdArray = $album->getSongIds();
 
-        <?php
-        $songIdArray = $album->getSongIds();
+		$i = 1;
+		foreach($songIdArray as $songId) {
 
-        $i = 1;
-        foreach ($songIdArray as $songId) //referance
-        {
-            $albumSong = new Song($con, $songId);
+			$albumSong = new Song($con, $songId);
+			$albumArtist = $albumSong->getArtist();
 
-
-            $albumArtist = $albumSong->getArtist();
-                                             //   cancel a character out.  \" is cancel out character
-            echo "<li class='tracklistRow'> 
-            <div class='trackCount'>
-                 <img class ='play' src = 'assets/images/icons/play-white.png' onclick = 'setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>  
-               
-                <span class ='trackNumber'>$i</span>
-            </div>
-
-            <div class='trackInfo'>
-                <span class ='trackName'>" . $albumSong->getTitle() . "</span>
-                <span class='artistName'>" . $albumArtist->getName() . "</span>
-            </div>
-
-            <div class= 'trackOption'>
-                <img class='optionButton' src ='assets/images/icons/more.png'>
-            </div>
-
-            <div class='trackDuration'>
-                <span class='duration'>" . $albumSong->getDuration() . "</span>
-            </div>
+			echo "<li class='tracklistRow'>
+					<div class='trackCount'>
+						<img class='play' src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>
+						<span class='trackNumber'>$i</span>
+					</div>
 
 
-            
-            </li>";
+					<div class='trackInfo'>
+						<span class='trackName'>" . $albumSong->getTitle() . "</span>
+						<span class='artistName'>" . $albumArtist->getName() . "</span>
+					</div>
+
+					<div class='trackOptions'>
+						<input type='hidden' class='songId' value='" . $albumSong->getId() . "'>
+						<img class='optionsButton' src='assets/images/icons/more.png' onclick='showOptionsMenu(this)'>
+					</div>
+
+					<div class='trackDuration'>
+						<span class='duration'>" . $albumSong->getDuration() . "</span>
+					</div>
 
 
-            $i = $i + 1;
-        }
+				</li>";
 
-        ?>
+			$i = $i + 1;
+		}
 
-        <script>
-            var tempSongIds = '<?php echo json_encode($songIdArray); ?>';   //PHP array convert into JSON foramt
-            tempPlaylist = JSON.parse(tempSongIds);     //use JSON format converted into an js object
-        </script>
+		?>
 
-    </ul>
+		<script>
+			var tempSongIds = '<?php echo json_encode($songIdArray); ?>';
+			tempPlaylist = JSON.parse(tempSongIds);
+		</script>
 
+	</ul>
 </div>
+
+
+<nav class="optionsMenu">
+	<input type="hidden" class="songId">
+	<?php echo Playlist::getPlaylistsDropdown($con, $userLoggedIn->getUsername()); ?>
+	<div class="item">Item 2</div>
+	<div class="item">Item 3</div>
+</nav>
+
+
+
+
+
+
+
